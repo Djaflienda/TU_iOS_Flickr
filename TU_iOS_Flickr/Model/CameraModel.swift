@@ -10,16 +10,25 @@ import Foundation
 import SwiftyJSON
 
 struct Camera {
-    var name                = ""
+//    var name                = ""
+//
+//    var megapixels          = "no discription"
+//    var lcdScreenSize       = "no discription"
+//    var memoryType          = "no discription"
+//
+//    var largeImageURL       = ""
+//    var smallImageURL       = ""
     
-    var megapixels          = "no discription"
-    var lcdScreenSize       = "no discription"
-    var memoryType          = "no discription"
-
-    var largeImageURL       = ""
-    var smallImageURL       = ""
+    var name: String?                
     
-    //var errorMessage        = ""
+    var megapixels: String?
+    var lcdScreenSize: String?
+    var memoryType: String?
+    
+    var largeImageURL: String?
+    var smallImageURL: String?
+    
+    var errorMessage: String?
     
     init?(json: JSON) {        
         if let name = json["name"]["_content"].string {
@@ -40,8 +49,8 @@ struct Camera {
         if let smallImageURL = json["images"]["small"]["_content"].string {
             self.smallImageURL = smallImageURL
         }
-       // if let errorMessage = json["message"].string {
-       //     self.errorMessage = errorMessage
-       // }
+        if let errorMessage = json["message"].string {
+            self.errorMessage = errorMessage
+        }
     }
 }

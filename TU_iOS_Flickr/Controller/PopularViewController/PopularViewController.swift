@@ -23,10 +23,13 @@ class PopularViewController: UIViewController {
     }
     
     func getPopularPhotos() {
-        activity.showOrHideActivityIndicator(at: view)
+        // Here the loading indicator is going to be shown
+        let loadingPopup = UIStoryboard(name: "Loading", bundle: nil).instantiateInitialViewController() as! LoadingPopupViewController
+        present(loadingPopup, animated: true)
+
         popularNManager.fetchFlickrPhotos() { photo in
             if let photo = photo {
-                self.activity.showOrHideActivityIndicator(at: self.view)
+                loadingPopup.closeLoadingPopupViewController()
                 if photo.count == 0 {
                     let alert = UIAlertController(title: "Something goes wrong", message: "More info later", preferredStyle: .alert)
                     let action = UIAlertAction(title: "OK", style: .default)

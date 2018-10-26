@@ -20,12 +20,19 @@ class CellLarge: UITableViewCell {
     
     func fillCellWithData(from element: Camera) {
         cameraName.text = element.name
-        megapixelsLabel.text = "megapixels: \(element.megapixels)"
-        lcdScreenSizeLabel.text = "lcd screen size: \(element.lcdScreenSize)"
-        memoryTypeLabel.text = "memory type: \(element.memoryType)"
         
-        if let url = URL(string: element.largeImageURL) {
-            largeImage.cacheImage(url: url)
+        if let megapixels = element.megapixels {
+            megapixelsLabel.text = "megapixels: \(megapixels)"
+        }
+        if let lcdScreenSize = element.lcdScreenSize {
+            lcdScreenSizeLabel.text = "lcd screen size: \(lcdScreenSize)"
+        }
+        if let memoryType = element.memoryType {
+            memoryTypeLabel.text = "memory type: \(memoryType)"
+        }
+        
+        if let umageURL = element.largeImageURL {
+            largeImage.cacheImage(url: URL(string: umageURL)!)
         } else {
             largeImage.image = UIImage(named: "noImage")
         }

@@ -25,7 +25,7 @@ extension BrandsViewController: UITableViewDelegate, UITableViewDataSource {
          }
          */
         
-        if camerasArray[indexPath.row].megapixels == "no discription" && camerasArray[indexPath.row].lcdScreenSize == "no discription" && camerasArray[indexPath.row].memoryType == "no discription" {
+        if camerasArray[indexPath.row].megapixels == nil && camerasArray[indexPath.row].lcdScreenSize == nil && camerasArray[indexPath.row].memoryType == nil {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "cellSmall", for: indexPath) as! CellSmall
             tableView.rowHeight = 75

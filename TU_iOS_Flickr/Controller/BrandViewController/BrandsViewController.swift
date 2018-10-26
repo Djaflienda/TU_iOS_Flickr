@@ -25,15 +25,21 @@ class BrandsViewController: UIViewController {
     }
     
     func getCamerasInfo(searchText: String? = nil) {
-        activity.showOrHideActivityIndicator(at: view)
+        // Here the loading indicator is going to be shown
+        let loadingPopup = UIStoryboard(name: "Loading", bundle: nil).instantiateInitialViewController() as! LoadingPopupViewController
+        present(loadingPopup, animated: true)
+        
         networkManager.fetchFlickrCameras(by: searchText) { camera in
             if let camera = camera {
-                self.activity.showOrHideActivityIndicator(at: self.view)
-                if camera.count == 0 {
-                    let alert = UIAlertController(title: "Something goes wrong", message: "More info later", preferredStyle: .alert)
-                    let action = UIAlertAction(title: "OK", style: .default)
-                    alert.addAction(action)
-                    self.present(alert, animated: true, completion: nil)
+                print(camera)
+                loadingPopup.closeLoadingPopupViewController()
+                if camera[0].errorMessage != nil {
+                    if let errorMessage = camera[0].errorMessage {
+                        let alert = UIAlertController(title: "\(errorMessage)", message: "Let's show message depend on error code?", preferredStyle: .alert)
+                        let action = UIAlertAction(title: "OK", style: .default)
+                        alert.addAction(action)
+                        self.present(alert, animated: true, completion: nil)
+                    }
                 } else {
                     self.camerasArray = camera
                     self.tableView.reloadData()

@@ -17,8 +17,8 @@ class CellSmall: UITableViewCell {
     func fillCellWithData(from element: Camera) {
         cameraName.text = element.name
         
-        if let url = URL(string: element.smallImageURL) {
-            smallImage.cacheImage(url: url)
+        if let umageURL = element.smallImageURL {
+            smallImage.cacheImage(url: URL(string: umageURL)!)
         } else {
             smallImage.image = UIImage(named: "noImage")
         }

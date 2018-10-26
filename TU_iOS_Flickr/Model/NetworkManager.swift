@@ -30,10 +30,18 @@ struct NetworkManager {
                         print("Error while parsing Flickr response")
                         return
                     }
-                    //should add all Error Codes here
-                    let camerasJSON = json["cameras"]["camera"]
-                    let camera = camerasJSON.arrayValue.compactMap {Camera(json: $0)}
-                    complition?(camera)
+                    if json["stat"] == "ok" {
+                        let camerasJSON = json["cameras"]["camera"]
+                        let camera = camerasJSON.arrayValue.compactMap {Camera(json: $0)}
+                        complition?(camera)
+                    } else {
+                        //-=FIX IT=-
+                        if let cameraJSON = Camera(json: json) {
+                            let camera: [Camera]? = [cameraJSON]
+                            complition?(camera)
+                        }
+                        //
+                    }
                 case .failure(let error):
                     print("Error while fetching photos: \(error.localizedDescription)")
                 }
