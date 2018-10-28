@@ -12,7 +12,7 @@ class PopularPhotoCell: UICollectionViewCell {
     
     @IBOutlet weak var image: UIImageView!
     
-    func fillCellWithData(from element: PopularPhoto) {
+    func fillCellWithData(from element: InterestingnessPhoto) {
         
         if let url = URL(string: element.url_q) {
             image.cacheImage(url: url)

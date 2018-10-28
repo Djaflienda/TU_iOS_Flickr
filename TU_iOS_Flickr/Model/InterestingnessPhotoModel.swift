@@ -9,7 +9,7 @@
 import Foundation
 import SwiftyJSON
 
-struct PopularPhoto {
+struct InterestingnessPhoto {
     var url_q = ""
 //    var url_z = ""
     

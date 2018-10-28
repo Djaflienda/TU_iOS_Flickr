@@ -12,9 +12,7 @@ class PopularViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    let popularNManager = NetworkManagerPopular()
-    var activity = LoadingIndicator()
-    var photoArray = [PopularPhoto]()
+    var photoArray = [InterestingnessPhoto]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,21 +21,21 @@ class PopularViewController: UIViewController {
     }
     
     func getPopularPhotos() {
-        // Here the loading indicator is going to be shown
         let loadingPopup = UIStoryboard(name: "Loading", bundle: nil).instantiateInitialViewController() as! LoadingPopupViewController
         present(loadingPopup, animated: true)
-
-        popularNManager.fetchFlickrPhotos() { photo in
-            if let photo = photo {
-                loadingPopup.closeLoadingPopupViewController()
-                if photo.count == 0 {
-                    let alert = UIAlertController(title: "Something goes wrong", message: "More info later", preferredStyle: .alert)
+        
+        NewNetworkManager.fetchFlickr(method: .interestingnessGetList, by: nil) { info in
+            loadingPopup.closeLoadingPopupViewController()
+            if let interestingness = info as? [InterestingnessPhoto] {
+                self.photoArray = interestingness
+                self.collectionView.reloadData()
+            }
+            if let error = info as? [ErrorModel] {
+                if let errorMessage = error[0].errorMessage {
+                    let alert = UIAlertController(title: "\(errorMessage)", message: "Let's show message depend on error code?", preferredStyle: .alert)
                     let action = UIAlertAction(title: "OK", style: .default)
                     alert.addAction(action)
                     self.present(alert, animated: true, completion: nil)
-                } else {
-                    self.photoArray = photo
-                    self.collectionView.reloadData()
                 }
             }
         }

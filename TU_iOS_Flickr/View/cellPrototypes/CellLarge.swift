@@ -18,7 +18,7 @@ class CellLarge: UITableViewCell {
     @IBOutlet weak var lcdScreenSizeLabel: UILabel!
     @IBOutlet weak var memoryTypeLabel: UILabel!
     
-    func fillCellWithData(from element: Camera) {
+    func fillCellWithData(from element: CameraModel) {
         cameraName.text = element.name
         
         if let megapixels = element.megapixels {

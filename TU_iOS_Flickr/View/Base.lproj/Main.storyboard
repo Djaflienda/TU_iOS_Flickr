@@ -149,7 +149,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CVCell" id="0l3-ha-YKO" customClass="PopularPhotoCell" customModule="TU_iOS_Flickr" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" reuseIdentifier="CVCell" id="0l3-ha-YKO" customClass="PopularPhotoCell" customModule="TU_iOS_Flickr" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -175,7 +175,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
-                    <navigationItem key="navigationItem" id="f6e-Id-JHO"/>
+                    <navigationItem key="navigationItem" id="f6e-Id-JHO">
+                        <barButtonItem key="rightBarButtonItem" title="Date" id="ZCe-se-AWs">
+                            <connections>
+                                <segue destination="3sl-Lp-jHz" kind="presentation" modalTransitionStyle="crossDissolve" id="Qbg-54-8wb"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="vOM-nl-0tu" id="7N9-c4-Itb"/>
                     </connections>
@@ -183,6 +189,92 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ijt-As-hMw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1649" y="777"/>
+        </scene>
+        <!--Date Picker View Controller-->
+        <scene sceneID="2F7-dZ-mza">
+            <objects>
+                <viewController modalPresentationStyle="overFullScreen" id="3sl-Lp-jHz" customClass="DatePickerViewController" customModule="TU_iOS_Flickr" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="H7H-sr-8KT"/>
+                        <viewControllerLayoutGuide type="bottom" id="gxZ-Nv-Plz"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Urg-sZ-nzG">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xp4-Tu-bxk">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.80000000000000004" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="pfH-uq-C2h">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q4P-to-JTi">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" id="GQB-0O-u0c">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </view>
+                                            <vibrancyEffect>
+                                                <blurEffect style="light"/>
+                                            </vibrancyEffect>
+                                        </visualEffectView>
+                                    </subviews>
+                                </view>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2p1-Nv-Cnj">
+                                <rect key="frame" x="42" y="315" width="330" height="267"/>
+                                <subviews>
+                                    <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="ak0-JX-mt5">
+                                        <rect key="frame" x="0.0" y="39" width="330" height="185"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <date key="date" timeIntervalSinceReferenceDate="562244319.03640997">
+                                            <!--2018-10-26 10:58:39 +0000-->
+                                        </date>
+                                    </datePicker>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SRw-IA-AbF">
+                                        <rect key="frame" x="40" y="232" width="250" height="35"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Done"/>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Choose the date..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mjd-Vt-7zG">
+                                        <rect key="frame" x="40" y="0.0" width="250" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="267" id="18A-hK-p3E"/>
+                                    <constraint firstAttribute="width" constant="330" id="7oO-md-ScP"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="xp4-Tu-bxk" firstAttribute="leading" secondItem="Urg-sZ-nzG" secondAttribute="leading" id="3jD-WI-hHn"/>
+                            <constraint firstItem="xp4-Tu-bxk" firstAttribute="top" secondItem="Urg-sZ-nzG" secondAttribute="top" id="CrX-QE-EQe"/>
+                            <constraint firstItem="2p1-Nv-Cnj" firstAttribute="top" secondItem="H7H-sr-8KT" secondAttribute="bottom" constant="271" id="D5Z-rk-urX"/>
+                            <constraint firstItem="gxZ-Nv-Plz" firstAttribute="top" secondItem="2p1-Nv-Cnj" secondAttribute="bottom" constant="280" id="MPN-sa-BKE"/>
+                            <constraint firstAttribute="trailing" secondItem="2p1-Nv-Cnj" secondAttribute="trailing" constant="42" id="Usc-za-Lx3"/>
+                            <constraint firstAttribute="bottom" secondItem="xp4-Tu-bxk" secondAttribute="bottom" id="nga-Ew-eyq"/>
+                            <constraint firstItem="2p1-Nv-Cnj" firstAttribute="leading" secondItem="Urg-sZ-nzG" secondAttribute="leading" constant="42" id="tg9-Ad-idD"/>
+                            <constraint firstAttribute="trailing" secondItem="xp4-Tu-bxk" secondAttribute="trailing" id="vqU-mg-6G8"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XSy-Mg-DuK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2485.507246376812" y="776.78571428571422"/>
         </scene>
         <!--Brands-->
         <scene sceneID="X5Q-UI-Kjp">

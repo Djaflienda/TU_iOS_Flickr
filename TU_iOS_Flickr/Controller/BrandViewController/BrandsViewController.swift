@@ -13,9 +13,7 @@ class BrandsViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
-    let networkManager = NetworkManager()
-    var activity = LoadingIndicator()
-    var camerasArray = [Camera]()
+    var camerasArray = [CameraModel]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,24 +23,21 @@ class BrandsViewController: UIViewController {
     }
     
     func getCamerasInfo(searchText: String? = nil) {
-        // Here the loading indicator is going to be shown
         let loadingPopup = UIStoryboard(name: "Loading", bundle: nil).instantiateInitialViewController() as! LoadingPopupViewController
         present(loadingPopup, animated: true)
-        
-        networkManager.fetchFlickrCameras(by: searchText) { camera in
-            if let camera = camera {
-                print(camera)
-                loadingPopup.closeLoadingPopupViewController()
-                if camera[0].errorMessage != nil {
-                    if let errorMessage = camera[0].errorMessage {
-                        let alert = UIAlertController(title: "\(errorMessage)", message: "Let's show message depend on error code?", preferredStyle: .alert)
-                        let action = UIAlertAction(title: "OK", style: .default)
-                        alert.addAction(action)
-                        self.present(alert, animated: true, completion: nil)
-                    }
-                } else {
-                    self.camerasArray = camera
-                    self.tableView.reloadData()
+
+        NewNetworkManager.fetchFlickr(method: .camerasGetBrandModels, by: searchText) { info in
+            loadingPopup.closeLoadingPopupViewController()
+            if let cameras = info as? [CameraModel] {
+                self.camerasArray = cameras
+                self.tableView.reloadData()
+            }
+            if let error = info as? [ErrorModel] {
+                if let errorMessage = error[0].errorMessage {
+                    let alert = UIAlertController(title: "\(errorMessage)", message: "Let's show message depend on error code?", preferredStyle: .alert)
+                    let action = UIAlertAction(title: "OK", style: .default)
+                    alert.addAction(action)
+                    self.present(alert, animated: true, completion: nil)
                 }
             }
         }

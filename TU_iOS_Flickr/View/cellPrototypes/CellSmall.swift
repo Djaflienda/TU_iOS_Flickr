@@ -14,7 +14,7 @@ class CellSmall: UITableViewCell {
     
     @IBOutlet weak var cameraName: UILabel!
     
-    func fillCellWithData(from element: Camera) {
+    func fillCellWithData(from element: CameraModel) {
         cameraName.text = element.name
         
         if let umageURL = element.smallImageURL {
