@@ -12,6 +12,7 @@ import SwiftyJSON
 
 enum RequestMethod {
     case camerasGetBrandModels
+    case getBrands
     case interestingnessGetList
 }
 
@@ -28,6 +29,13 @@ struct NewNetworkManager {
                     "api_key": "4346307575616788415d84973f219e6a",
                     "method": "flickr.cameras.getBrandModels",
                     "brand": "\(searchText ?? "apple")",
+                    "format": "json",
+                    "nojsoncallback": "1"
+                ]
+            case .getBrands:
+                return [
+                    "api_key": "4346307575616788415d84973f219e6a",
+                    "method": "flickr.cameras.getBrands",
                     "format": "json",
                     "nojsoncallback": "1"
                 ]
@@ -59,6 +67,10 @@ struct NewNetworkManager {
                             let camerasJSON = json["cameras"]["camera"]
                             let cameras = camerasJSON.arrayValue.compactMap {CameraModel(json: $0)}
                             complition(cameras as [AnyObject])
+                        case .getBrands:
+                            let brandJSON = json["brands"]["brand"]
+                            let brands = brandJSON.arrayValue.compactMap {BrandModel(json: $0)}
+                            complition(brands as [AnyObject])
                         case .interestingnessGetList:
                             let interestingnessJSON = json["photos"]["photo"]
                             let interestingnessPhotos = interestingnessJSON.arrayValue.compactMap {InterestingnessPhoto(json: $0)}
