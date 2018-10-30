@@ -40,8 +40,6 @@ extension BrandsViewController: UISearchBarDelegate {
         visualEffectView = UIVisualEffectView()
         visualEffectView.frame = self.view.frame
         self.view.addSubview(visualEffectView)
-        //blur effect doesn't work when collapse searchViewController -> -=FIX IT=-
-        visualEffectView.isHidden = true
         
         cardViewController = SearchViewController(nibName:"SearchView", bundle:nil)
         self.addChild(cardViewController)
@@ -98,6 +96,16 @@ extension BrandsViewController: UISearchBarDelegate {
             }
             
             frameAnimator.addCompletion { _ in
+
+                //this block shows visualEffectView depend on state
+                //now blur effect is animated
+                switch state {
+                case .collapsed:
+                    self.visualEffectView.isHidden = true
+                case .expanded:
+                    self.visualEffectView.isHidden = false
+                }
+
                 self.cardVisible = !self.cardVisible
                 self.runningAnimations.removeAll()
 
@@ -105,7 +113,6 @@ extension BrandsViewController: UISearchBarDelegate {
             
             frameAnimator.startAnimation()
             runningAnimations.append(frameAnimator)
-            
             
             let cornerRadiusAnimator = UIViewPropertyAnimator(duration: duration, curve: .linear) {
                 switch state {
@@ -127,7 +134,6 @@ extension BrandsViewController: UISearchBarDelegate {
                 case .collapsed:
                     self.visualEffectView.effect = nil
                     // не совсем то место. Но пока чтобы не лочилась таблица
-                    self.visualEffectView.isHidden = true
 
                 }
             }
