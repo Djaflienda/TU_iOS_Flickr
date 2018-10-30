@@ -20,7 +20,7 @@ class BrandsViewController: UIViewController, SearchBrandDelegate {
         case expanded
         case collapsed
     }
-    
+        
     var cardViewController:SearchViewController!
     var visualEffectView:UIVisualEffectView! 
     
@@ -42,8 +42,8 @@ class BrandsViewController: UIViewController, SearchBrandDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         //after complition with searchViewController remove this two lines
-        navigationItem.titleView = searchBar
-        searchBar.placeholder = "Search by brand"
+//        navigationItem.titleView = searchBar
+//        searchBar.placeholder = "Search by brand"
         
         setupCard()
         getCamerasInfo()

@@ -13,7 +13,7 @@ protocol SearchBrandDelegate {
 }
 
 //refactoring
-class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
+class SearchViewController: UIViewController {
 
     @IBOutlet weak var handleArea: UIView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -34,40 +34,14 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         tableView.register(nib, forCellReuseIdentifier: "SearchCell")
         
         getCamerasInfo()
-    }
-
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        searchBar.showsCancelButton = true
-    }
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-//        self.resignFirstResponder()
-//        searchBar.showsCancelButton = false
-//        searchBar.text = ""
-
-    }
-    
-    //show keyboard
-    //UIResponder??
-    //cancel button\search button
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return brandsArray.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as! SearchCell
-        cell.titleLabel.text = brandsArray[indexPath.row].name
-        return cell
         
+        searchBar.isUserInteractionEnabled = false
+        
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        delegate?.searchForBrand(searchText: brandsArray[indexPath.row].name)
-    }
-    
+
     func getCamerasInfo(searchText: String? = nil) {
         NewNetworkManager.fetchFlickr(method: .getBrands, by: searchText) { info in            
             if let brands = info as? [BrandModel] {
@@ -75,10 +49,26 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                 self.tableView.reloadData()
             } else {
                 // add error handling
+                // if there is an error - show just one line in table view with something like "No available information"
             }
             
         }
     }
-
-
+    
+    @objc
+    func adjustForKeyboard(notification: Notification) {
+        let userInfo = notification.userInfo!
+        
+        let keyboardScreenEndFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let keyboardViewEndFrame = view.convert(keyboardScreenEndFrame, from: view.window)
+        
+        if notification.name == UIResponder.keyboardWillHideNotification {
+            tableView.contentInset = UIEdgeInsets.zero
+        } else {
+            // don't like force unwrapping here -=FIX IT=-
+            tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardViewEndFrame.height - (navigationController?.navigationBar.frame.height)!, right: 0)
+        }
+        
+        tableView.scrollIndicatorInsets = tableView.contentInset
+    }
 }

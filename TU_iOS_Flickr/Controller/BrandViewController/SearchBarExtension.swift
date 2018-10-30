@@ -12,29 +12,30 @@ extension BrandsViewController: UISearchBarDelegate {
 
     //remove this functions when searchViewController will be done
     //==================================================================
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        tableView.isUserInteractionEnabled = false
-        searchBar.showsCancelButton = true
-        //loadBrandList()
-    }
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.resignFirstResponder()
-        tableView.isUserInteractionEnabled = true
-        searchBar.showsCancelButton = false
-        searchBar.text = ""
-        //brandListArray.removeAll()
-        //tableView.reloadData()
-    }
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.resignFirstResponder()
-        getCamerasInfo(searchText: searchBar.text)
-        tableView.isUserInteractionEnabled = true
-        searchBar.showsCancelButton = false
-        searchBar.text = ""
-        //brandListArray.removeAll()
-        //tableView.reloadData()
-    }
+//    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+//        tableView.isUserInteractionEnabled = false
+//        searchBar.showsCancelButton = true
+//        //loadBrandList()
+//    }
+//    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+//        searchBar.resignFirstResponder()
+//        tableView.isUserInteractionEnabled = true
+//        searchBar.showsCancelButton = false
+//        searchBar.text = ""
+//        //brandListArray.removeAll()
+//        //tableView.reloadData()
+//    }
+//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+//        searchBar.resignFirstResponder()
+//        getCamerasInfo(searchText: searchBar.text)
+//        tableView.isUserInteractionEnabled = true
+//        searchBar.showsCancelButton = false
+//        searchBar.text = ""
+//        //brandListArray.removeAll()
+//        //tableView.reloadData()
+//    }
     //==================================================================
+    
     
     func setupCard() {
         visualEffectView = UIVisualEffectView()
@@ -96,14 +97,17 @@ extension BrandsViewController: UISearchBarDelegate {
             }
             
             frameAnimator.addCompletion { _ in
-
                 //this block shows visualEffectView depend on state
                 //now blur effect is animated
                 switch state {
                 case .collapsed:
                     self.visualEffectView.isHidden = true
+                    self.cardViewController.searchBar.isUserInteractionEnabled = false
+                    self.cardViewController.searchBarCancelButtonClicked(self.cardViewController.searchBar)
                 case .expanded:
                     self.visualEffectView.isHidden = false
+                    self.cardViewController.searchBar.isUserInteractionEnabled = true
+                    self.cardViewController.searchBar.becomeFirstResponder()
                 }
 
                 self.cardVisible = !self.cardVisible
@@ -133,8 +137,6 @@ extension BrandsViewController: UISearchBarDelegate {
                     self.visualEffectView.isHidden = false
                 case .collapsed:
                     self.visualEffectView.effect = nil
-                    // не совсем то место. Но пока чтобы не лочилась таблица
-
                 }
             }
             
