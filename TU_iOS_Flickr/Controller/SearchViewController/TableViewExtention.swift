@@ -11,6 +11,9 @@ import UIKit
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if isSearching {
+            return brandsFilteredArray.count
+        }
         return brandsArray.count != 0 ? brandsArray.count : 1
     }
     
@@ -18,10 +21,15 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as! SearchCell
         
-        if brandsArray.count != 0 {
-            cell.titleLabel.text = brandsArray[indexPath.row].name
-        } else {
-            cell.titleLabel.text = "Unable to load brands list"
+        switch isSearching {
+        case true:
+            cell.titleLabel.text = brandsFilteredArray[indexPath.row].name
+        case false:
+            if brandsArray.count != 0 {
+                cell.titleLabel.text = brandsArray[indexPath.row].name
+            } else {
+                cell.titleLabel.text = "Unable to load brands list"
+            }
         }
         
         return cell

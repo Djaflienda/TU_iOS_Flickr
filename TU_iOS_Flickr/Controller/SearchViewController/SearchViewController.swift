@@ -21,6 +21,8 @@ class SearchViewController: UIViewController {
     
     var brandsViewController: BrandsViewController!
     var brandsArray = [BrandModel]()
+    var brandsFilteredArray = [BrandModel]()
+    var isSearching = false
     var delegate: SearchBrandDelegate?
     
     override func viewDidLoad() {
@@ -47,11 +49,7 @@ class SearchViewController: UIViewController {
             if let brands = info as? [BrandModel] {
                 self.brandsArray = brands
                 self.tableView.reloadData()
-            } else {
-                // add error handling
-                // if there is an error - show just one line in table view with something like "No available information"
             }
-            
         }
     }
     

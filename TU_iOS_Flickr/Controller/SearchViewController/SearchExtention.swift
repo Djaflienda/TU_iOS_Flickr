@@ -18,7 +18,8 @@ extension SearchViewController: UISearchBarDelegate {
         searchBar.resignFirstResponder()
         searchBar.showsCancelButton = false
         searchBar.text = ""
-        
+        isSearching = false
+        tableView.reloadData()
     }
     
     //show keyboard
@@ -28,6 +29,14 @@ extension SearchViewController: UISearchBarDelegate {
         searchBar.resignFirstResponder()
         delegate?.searchForBrand(searchText: searchBar.text)
         searchBar.showsCancelButton = false
+        isSearching = false
+        tableView.reloadData()
         searchBar.text = ""
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        brandsFilteredArray = brandsArray.filter({$0.name!.prefix(searchText.count) == searchText})
+        isSearching = true
+        tableView.reloadData()
     }
 }
