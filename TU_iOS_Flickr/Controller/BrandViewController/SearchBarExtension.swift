@@ -41,6 +41,7 @@ extension BrandsViewController: UISearchBarDelegate {
         visualEffectView = UIVisualEffectView()
         visualEffectView.frame = self.view.frame
         self.view.addSubview(visualEffectView)
+        self.visualEffectView.isHidden = true
         
         cardViewController = SearchViewController(nibName:"SearchView", bundle:nil)
         self.addChild(cardViewController)

@@ -28,7 +28,7 @@ struct NewNetworkManager {
                 return [
                     "api_key": "4346307575616788415d84973f219e6a",
                     "method": "flickr.cameras.getBrandModels",
-                    "brand": "\(searchText ?? "apple")",
+                    "brand": "\(searchText ?? "olympus")",
                     "format": "json",
                     "nojsoncallback": "1"
                 ]

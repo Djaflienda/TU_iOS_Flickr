@@ -20,5 +20,8 @@ class DatePickerViewController: UIViewController {
         }
     }
 
-
+    @IBAction func doneButtonPressed(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 }

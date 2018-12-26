@@ -79,5 +79,6 @@ class BrandsViewController: UIViewController, SearchBrandDelegate {
     //delegate method to search from childViewController
     func searchForBrand(searchText: String?) {
         getCamerasInfo(searchText: searchText)
+        self.animateTransitionIfNeeded(state: .collapsed, duration: 0.5)
     }
 }

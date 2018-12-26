@@ -38,6 +38,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if brandsArray.count != 0 {
             delegate?.searchForBrand(searchText: brandsArray[indexPath.row].name)
+            self.resignFirstResponder()
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
